@@ -8,15 +8,16 @@
 				class_check: "mcq-check",
 				class_hint: "mcq-hint",
 				class_hintcontents: "mcq-hintcontents",
-				class_reset: "mcq-resetall",
+				class_resetall: "mcq-resetall",
+				class_checkall: "mcq-checkall",
 				class_correct: "mcq-correct",
 				class_incorrect: "mcq-incorrect",
 				class_qcontents: "mcq-qcontents",
 				class_unselected: "mcq-unselected",
 
 				unselected_msg: "Select a question!",
-				correct_msg: "Correct!",
-				incorrect_msg: "Wrong!",
+				correct_msg: "Correct",
+				incorrect_msg: "Incorrect",
 
 				mathjax_render: false
 			}, options);
@@ -31,9 +32,9 @@
 				var content = "";
 				for (var i = 0; i < questions.length; i++ ) {
 					var question = questions[i];
-					content += "<div class='mcq-question'>";
-					content += "<div class='mcq-qcontents'>" + question.question + "</div>";
-					content += "<form class='mcq-options'>";
+					content += "<div class='"+settings.class_question+"'>";
+					content += "<div class='"+settings.class_qcontents+"'>" + question.question + "</div>";
+					content += "<form class='"+settings.class_options+"'>";
 					var options = question.options;
 					for (var j = 0; j < options.length; j++) {
 						content += "<label><input type='radio' name='choice'>";
@@ -48,32 +49,32 @@
 						if (options[j].hasOwnProperty('feedback')) {
 							fbmsg = options[j].feedback;
 						}
-						content += "<div class='mcq-feedback'>" + fbmsg + "</div>";
+						content += "<span class='"+settings.class_feedback+"'><br>" + fbmsg + "</span>";
 
 						content += "<br/>";
 
 					}
 					content += "</form>";
-					content += "<button class='mcq-check'>Check</button>";
+					content += "<button class='"+settings.class_check+"'>Check</button>";
 					if (question.hint) {
-						content += "<button class='mcq-hint'>Hint</button>";
-						content += "<div class='mcq-hintcontents'></div>";
+						content += "<button class='"+settings.class_hint+"'>Hint</button>";
+						content += "<div class='"+settings.class_hintcontents+"'></div>";
 					}
 					content += "</div>";
 				}
-				content += "<button class='mcq-checkall'>Check all</div>";
-				content += "<button class='mcq-resetall'>Reset</div>";
+				content += "<button class='"+settings.class_checkall+"'>Check all</div>";
+				content += "<button class='"+settings.class_resetall+"'>Reset</div>";
 
 				$this.html(content);
 
 				//adding the interactivity:
-				var $questions = $this.find('.mcq-question');
+				var $questions = $this.find('.'+settings.class_question);
 
 				$questions.each(function(i) {
 					var $$this = $(this);
 
 
-					var check = $$this.find('button.mcq-check');
+					var check = $$this.find('.'+settings.class_check);
 					check.bind('click', function() {
 
 						var options = $$this.find('input[name=choice]');
@@ -99,7 +100,7 @@
 							var label = $($$this.find("label")[index]);
 							label.append("<span class='"+settings.class_incorrect+"'>" + settings.incorrect_msg + "</span>");
 
-							var feedbacks = $this.find('.mcq-feedback');
+							var feedbacks = $this.find('.'+settings.class_feedback);
 
 							//hide all the feedbacks:
 							feedbacks.each(function() {
@@ -107,7 +108,7 @@
 							});
 
 							if (questions[i].options[index].hasOwnProperty('feedback')) {
-								var feedback = $($$this.find('.mcq-feedback')[index]);
+								var feedback = $($$this.find('.'+settings.class_feedback)[index]);
 								feedback.show();
 							}
 
@@ -119,14 +120,14 @@
 					});
 
 					//feedbacks:
-					var feedback = $$this.find('.mcq-feedback');
+					var feedback = $$this.find('.'+settings.class_feedback);
 					feedback.hide();
 
 					//hints:
-					var hint = $$this.find('button.mcq-hint');
+					var hint = $$this.find('.'+settings.class_hint);
 					//initialise hint:
 					if (hint.length == 1) {
-							var hint_contents = $$this.find('.mcq-hintcontents');
+							var hint_contents = $$this.find('.'+settings.class_hintcontents);
 							hint_contents.html(questions[i].hint);
 							hint_contents.hide();
 						hint.bind('click', function() {
@@ -142,15 +143,15 @@
 				});
 
 				//overall controllers:
-				var checkall = $this.find('.mcq-checkall');
+				var checkall = $this.find('.'+settings.class_checkall);
 
 				checkall.bind('click', function() {
 					//check all of them.
-					var checks = $questions.find('button.mcq-check');
+					var checks = $questions.find('.'+settings.class_check);
 					checks.trigger('click');
 				});
 
-				var resetall = $this.find('.mcq-resetall');
+				var resetall = $this.find('.'+settings.class_resetall);
 
 				resetall.bind('click', function() {
 
@@ -159,9 +160,9 @@
 						_this.find('.' + settings.class_correct).remove();
 						_this.find('.' + settings.class_incorrect).remove();
 						_this.find("."+settings.class_unselected).remove();
-						_this.find('.mcq-feedback').hide();
+						_this.find('.'+settings.class_feedback).hide();
 						_this.find('input[name=choice]').prop('checked', false);
-						_this.find('.mcq-hintcontents').hide();
+						_this.find('.'+settings.class_hintcontents).hide();
 					});
 
 				});
@@ -175,9 +176,9 @@
 		'reset': function() {
 			$questions.each(function() {
 				var _this = $(this);
-				_this.find('.mcq-feedback').html('');
+				_this.find('.'+settings.class_feedback).html('');
 				_this.find('input[name=choice]').prop('checked', false);
-				_this.find('.mcq-hintcontents').html('');
+				_this.find('.'+settings.class_hintcontents).html('');
 			});
 		}
 	};

@@ -2,9 +2,6 @@
 
 jQuery plugins in the process of being extracted from some content I created when doing tutoring work.
 
-* [define.js](http://xiaodili.com/define)
-* [mcq.js](http://xiaodili.com/mcq)
-
 ## define.js
 
 Tooltips help streamline the flow of text; they can to used to bring clarity and extra information to a discussion.
@@ -74,11 +71,11 @@ Questions and answer key are defined in JSON format:
 				{answer: "this is a rhetorical question", feedback: "Well done. You have passed the sphinx's test."}
 			],
 			hint: "Why don't you try it and find out?",
-			correct: 2,
+			correct: 2
 		}
 	]};
 
-	$('#mcq_area').mcq(questions: my_questions);
+	$('#mcq_area').mcq({questions: my_questions});
 
 * Options are given in an array. They can either be values, or JSON objects with a `feedback` field.
 * `correct` refers to the index of the correct answer in zero based numbering.
@@ -86,4 +83,17 @@ Questions and answer key are defined in JSON format:
 
 ### Options
 
+Custom outcome messages can be displayed if passed in as strings with `unselected_msg`, `correct_msg` and `incorrect_msg` fields.
 
+If working with MathJax, can use the `mathjax_render` boolean to reprocess the quiz area (`false` by default).
+
+For css stylings, the generated classes are all prefixed with `mcq-*`. If you want to change these, pass in the appropriate `class_*` fields. Consult the browser's element inspector to see all the classes used.
+
+For example:
+
+	$('#mcq_area').mcq({
+		questions: my_questions,
+		class_feedback: "my_awesome_feedback_css_styling",
+		correct_msg: "Hmmph, lucky guess!",
+		mathjax_render: true
+	});
