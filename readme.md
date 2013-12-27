@@ -8,7 +8,7 @@ Tooltips help streamline the flow of text; they can to used to bring clarity and
 
 Takes a JSON object of definitions and applies them to html to create tooltips.
 
-Demo [here](http://xiaodili.com/define).
+Demo [here](http://xiaodili.com/elearn/define).
 
 ### Usage
 
@@ -51,7 +51,7 @@ By default, the class given to the tooltips are `tooltip`. To change this to com
 
 A JSON template for generating multiple choice quizzes.
 
-Demo [here](http://xiaodili.com/mcq).
+Demo [here](http://xiaodili.com/elearn/mcq).
 
 ### Usage
 
