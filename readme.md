@@ -57,7 +57,7 @@ Demo [here](http://xiaodili.com/mcq).
 
 Questions and answer key are defined in JSON format:
 
-	var mcqs = {[
+	var my_questions = {[
 		{
 			question: "What is 1 + 1?",
 			options: ["1", "2", "3"],
